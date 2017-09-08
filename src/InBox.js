@@ -12,8 +12,9 @@ class InBox extends Component {
   }
 
   removeMessages = (ids) => {
+    const remainingMsgs = this.state.messages.filter(message => ids.indexOf(message.id) < 0)
     this.setState({
-        messages: this.state.messages.filter(message => ids.indexOf(message.id) < 0)
+        messages: remainingMsgs.map((message,index) => ({...message, id: index+1}) )
       })
   }
 
