@@ -4,7 +4,6 @@ import '../index.css';
 const checkedMessageIDs = messages => {
   const checkedMsgs = messages.filter(message => !!message.checked && message.checked)
   const messageIDs = checkedMsgs.map(message => message.id)
-  console.log('checkedMessageIDs: ', messageIDs )
   return messageIDs
 }
 
@@ -12,7 +11,6 @@ const checkedMessagesTotal = messages => messages.reduce((count, message) => mes
 
 const selectedItemsButtonImage = (messages) => {
   const checkedMessagesCount = checkedMessagesTotal(messages)
-  console.log('checked messages count: ', checkedMessagesCount)
   const imageStyle = ((checkedMessagesCount > 0) && (checkedMessagesCount < messages.length)) ?
                         '-minus' :
                             (checkedMessagesCount === messages.length ? '-check' : '')

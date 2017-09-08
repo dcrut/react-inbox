@@ -35,15 +35,11 @@ class InBox extends Component {
           let labels = null
           if (i < 0) {
             labels = [...message.labels]
-            console.log('Remove labels = ', labels)
           } else {
             labels = [...message.labels.slice(0, i), ...message.labels.slice(i + 1)]
-            console.log('Remove LABELS = ', labels)
           }
-          console.log('RemoveLabel new message: ', {...message, labels: [...labels]})
           return {...message, labels: [...labels]}
         } else {
-          console.log('RemoveLabel old message: ', {...message})
           return {...message}
         }
       })
@@ -68,15 +64,11 @@ class InBox extends Component {
             let labels = null
             if (i < 0) {
               labels = [...message.labels, label]
-              console.log('LABELS = ', labels)
             } else {
               labels = [...message.labels]
-              console.log('labels = ', labels)
             }
-            console.log('AddLabel new message: ', {...message, labels: [...labels]})
             return {...message, labels: [...labels]}
           } else {
-            console.log('AddLabel old message: ', {...message})
             return {...message}
           }
         })
@@ -85,16 +77,12 @@ class InBox extends Component {
   }
 
   addMessage = message => {
-    console.log('Add Message: ', message)
     this.setState({
       messages: this.state.messages.concat(message)
     })
-    console.log('Last Added Message: ', this.state.messages[-1])
   }
 
   readMessage = (id, value) => {
-    console.log('Message read id: ', id)
-    console.log('Message read value: ', value)
     this.setState({
       messages: this.state.messages.map(message => ( message.id === id ? {...message, read: value} : {...message} ) )
     })
@@ -119,7 +107,6 @@ class InBox extends Component {
   }
 
   expandMessage = (id, value) => {
-    console.log('Expand Message value: ', value)
     this.setState({
       messages: this.state.messages.map(message => ( message.id === id ? {...message, expand: value, read: true} : {...message} ) )
     })
