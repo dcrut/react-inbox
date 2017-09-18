@@ -38,11 +38,11 @@ const ToolBar = ({
             <i className={"fa fa" + selectedItemsButtonImage(messages) + "-square-o"}></i>
           </button>
 
-          <button className="btn btn-default" onClick={e => { markCheckedMessagesAsRead(true) }} disabled={(checkedMessagesTotal(messages) > 0) ? false : true}>
+          <button className="btn btn-default" onClick={e => { markCheckedMessagesAsRead(checkedMessageIDs(messages), true) }} disabled={(checkedMessagesTotal(messages) > 0) ? false : true}>
             Mark As Read
           </button>
 
-          <button className="btn btn-default" onClick={e => { markCheckedMessagesAsRead(false) }} disabled={(checkedMessagesTotal(messages) > 0) ? false : true}>
+          <button className="btn btn-default" onClick={e => { markCheckedMessagesAsRead(checkedMessageIDs(messages), false) }} disabled={(checkedMessagesTotal(messages) > 0) ? false : true}>
             Mark As Unread
           </button>
 
@@ -53,7 +53,7 @@ const ToolBar = ({
             <option value="gschool">gschool</option>
           </select>
 
-          <select value={removeLabel} className="form-control label-select" onChange={e => { deleteLabel(checkedMessageIDs(messages), e.target.value) }} disabled={(checkedMessagesTotal(messages) > 0) ? false : true}>
+          <select value={deleteLabel} className="form-control label-select" onChange={e => { removeLabel(checkedMessageIDs(messages), e.target.value) }} disabled={(checkedMessagesTotal(messages) > 0) ? false : true}>
             <option>Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

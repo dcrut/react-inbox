@@ -3,7 +3,7 @@ import React from 'react'
 const ComposeMessage = ({messages, addMessage}) => (
   <form className="form-horizontal well" onSubmit={ e => { addMessage(
           {
-            id: messages.length+1,
+            // id: messages.length+1,
             subject: !!e.target.subject.value && e.target.subject.value !== '' ? e.target.subject.value : 'No Subject',
             body: !!e.target.body.value && e.target.body.value !== '' ? e.target.body.value : '',
             read: false,
