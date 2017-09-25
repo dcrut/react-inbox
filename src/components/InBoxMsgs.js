@@ -25,6 +25,7 @@ const InBoxMsgs = ({messages, readMessage, checkedMessage, expandMessage, starre
         })
       }
       </div>
-)
+);
 
-export default InBoxMsgs
+
+export default InBoxMsgs;

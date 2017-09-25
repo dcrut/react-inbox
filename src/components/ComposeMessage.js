@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { createMessage, toggleCompose } from '../actions'
 
 const ComposeMessage = ({messages, addMessage}) => (
   <form className="form-horizontal well" onSubmit={ e => { addMessage(
@@ -11,6 +14,7 @@ const ComposeMessage = ({messages, addMessage}) => (
             labels: []
           }
         )
+        this.props.toggleCompose(false)
         e.preventDefault()
         e.target.reset()
       } }>
@@ -41,4 +45,16 @@ const ComposeMessage = ({messages, addMessage}) => (
   </form>
 )
 
-export default ComposeMessage
+const mapStateToProps = state => ({
+  // messages: state.items.all,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addMessage: createMessage,
+  toggleCompose,
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ComposeMessage)
