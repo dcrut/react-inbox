@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import '../index.css';
 
 const checkedMessageIDs = messages => {
@@ -30,9 +31,9 @@ const ToolBar = ({
             unread messages
           </p>
 
-          <a className="btn btn-danger" onClick={e => { toggleCompose() }}>
+          <Link to={(!compose ? "/compose" : "/")} className="btn btn-danger" onClick={e => { toggleCompose() }}>
             <i className={"fa fa-" + (compose ? "plus" : "minus") }></i>
-          </a>
+          </Link>
 
           <button className="btn btn-default" onClick={e => { checkAllMessages() }}>
             <i className={"fa fa" + selectedItemsButtonImage(messages) + "-square-o"}></i>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import '../index.css';
 
 const showBody = (expand, body) => (
@@ -30,9 +31,9 @@ const Message = ({
           </div>
           <div id="msgbody" className="col-xs-11" onClick={e => { expandMessage(id, !expand) }}>
             {labels.map((label, i) => <span key={i} className="label label-warning">{label}</span>)}
-            <a name="msgbody">
+            <Link to={`/api/messages/${id}`} name="msgbody">
               {subject}
-            </a>
+            </Link>
           </div>
         </div>
         { showBody(expand, body) }

@@ -1,26 +1,32 @@
 import { combineReducers } from 'redux'
 import { MESSAGE_COMPOSE, MESSAGES_REMOVE, MESSAGES_REMOVE_LABEL, MESSAGES_ADD_LABEL, MESSAGES_ALL_CHECKED, MESSAGE_STARRED, MESSAGE_CHECKED, MESSAGE_EXPAND, MESSAGE_READ, MESSAGES_RECEIVED, MESSAGE_CREATED, MESSAGES_MARKED_READ } from '../actions'
+import { routerReducer } from 'react-router-redux'
 
-
-function messages(state = { byId: {}, all: [] }, action) {
+function messages(currentState, action) {
+  const state = !!currentState ? {...currentState} : { byId: {}, all: [] }
   switch (action.type) {
     case MESSAGES_RECEIVED:
-      const messagesById = action.messages.reduce((result, message) => {
+      const allMsgsExpand = action.messages.map(message => (
+        (state.byId.hasOwnProperty(message.id) && state.byId[message.id] !== undefined && !!state.byId[message.id].expand)
+          ? {...message, expand: true, read: true}
+          : {...message, expand: false}
+      ) )
+      const msgsByIdExpand = allMsgsExpand.reduce((result, message) => {
           result[message.id] = message
           return result
         }, {})
         return {
           ...state,
           compose: false,
-          byId: messagesById,
-          all: action.messages
+          byId: msgsByIdExpand,
+          all: allMsgsExpand
         }
     case MESSAGE_CREATED:
       return {
         ...state,
         all: [
-          action.message,
           ...state.all,
+          action.message,
         ]
       }
     case MESSAGE_COMPOSE:
@@ -94,7 +100,7 @@ function messages(state = { byId: {}, all: [] }, action) {
       return  {
         ...state,
         byId: {...state.byId, [action.id]: expandMessageById},
-        all: state.all.map(message => ( message.id === action.id ? {...message, expand: action.expand, read: true} : {...message} ) ),
+        all: state.all.map(message => ( message.id === action.id ? {...message, expand: action.expand, read: true} : {...message, expand: false} ) ),
       }
     case MESSAGE_CHECKED:
       const checkMessageById = {...state.byId[action.id], checked: action.checked}
@@ -154,6 +160,8 @@ function messages(state = { byId: {}, all: [] }, action) {
   }
 }
 
+// Add the reducer to your store on the `router` key
 export default combineReducers({
   messages,
+  router: routerReducer,
 })
